@@ -60,3 +60,93 @@ def dijkstra(start):
       print("INFINITY")
     else:
       print(distance[i])
+      
+ # 이처럼 간단하게 구현한 다익스트라 알고리즘은 노드의 개수가 적을 때는 상관없지만 노드의 개수가 10,000개 이상으로 많아지면 시간복잡도가 올라가 시간초과 판정을 받을 수 있다.
+ # 따라서 조금 더 개선된 다익스트라 알고리즘을 이용해야 하는데 여기서 사용되는게 '힙'이라는 개념이다.(자바로 따지면 스택,큐,우선순위 큐 이다.)
+ # 힙 라이브러리에 사용 예제를 보면
+
+
+ # 1.오름차순 정렬
+ # 파이썬의 힙은 기본적으로 push하면 오름차순으로 정렬되도록 구현되어있음.
+import heapq
+
+def heapq(iterable):
+  h = []
+  result = []
+  
+  for value in iterable:
+    heapq.heappush(h , value)
+    
+  for i in range(len(h)):
+    result.append(heapq.heappop(h))
+  return result
+
+result = heapsort([1, 3, 5, 7, 9, 2,4 ,6, 8, 0])
+print(result)
+
+==> 0,1,2,3,4,5,6,7,8,9
+
+# 2.내림차순 정렬
+import heapq
+
+def heapq(iterable):
+  h = []
+  result = []
+  
+  for value in iterable:
+    heapq.heappush(h , -value)
+    
+  for i in range(len(h)):
+    result.append(-heapq.heappop(h))
+  return result
+
+result = heapsort([1, 3, 5, 7, 9, 2,4 ,6, 8, 0])
+print(result)
+
+==> 9,8,7,6,5,4,3,2,1
+
+# 이러한 힙 라이브러리를 이용한 개선된 다익스트라 알고리즘
+import heapq
+import sys
+input = sys.stdin.readline
+INF = int(1e9)
+
+n, m = map(int,input().split())
+
+start = int(input())
+
+graph = [[] for i in range(n + 1)]
+
+distance = [INF] * (n + 1)
+
+for _ in range(m):
+  a, b, c = map(int, input().split())
+  graph[a].append((b,c))
+
+
+def dijkstra(start):
+  q = []
+  
+  heapq.heappush(q, (0, start))
+  distance[start] = 0
+  
+  while q:
+    dist, now heapq.heappop(q)
+    
+    if distance[now] < dist:
+      continue
+      
+    for i in graph[now]:
+      cost = dist + i[1]
+      
+      if cost < distance[i[0]]:
+        distance[i[0]] = cost
+        heapq.heappush(q, (cost, i[0]))
+        
+ dijkstra(start)
+
+for i in range(1 , n + 1):
+  if distance[i] == INF:
+    print("INFINITY")
+  else:
+    print(distance[i])
