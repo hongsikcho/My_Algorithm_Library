@@ -1,112 +1,75 @@
-n = int(input())
-arrays = []
-result = []
+#dfs
+nn = int(input())
+graph = []
+chk = [[0]*n for _ in range(n)]
 for _ in range(n):
-    arrays.append(list(map(int, input())))
+    graph.append(list(map(int,input().rstrip())))
+rs = 0
+dx = [0,1,0,-1]
+dy = [1,0,-1,0]
+answer = []
 
-
-def dfs(x, y):
+def dfs(x,y):
     global cnt
-    if x <= -1 or x >= n or y <= -1 or y >= n:
-        return False
-
-    if arrays[x][y] == 1:
-
-        arrays[x][y] = 0
-        cnt += 1
-
-        dfs(x+1, y)
-        dfs(x-1, y)
-        dfs(x, y-1)
-        dfs(x, y+1)
-        return True
-    return False
+    cnt += 1
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        
+        if 0 <= nx <n and 0 <= ny < n:
+            if chk[nx][ny] == 0 and graph[nx][ny] == 1:
+                chk[nx][ny] = 1
+                dfs(nx,ny)
+             
 
 
 for i in range(n):
     for j in range(n):
-        cnt = 0
-        if dfs(i, j) == True:
-            result.append(cnt)
-
-print(len(result))
-for i in sorted(result):
-    print(i)n = int(input())
-arrays = []
-result = []
-for _ in range(n):
-    arrays.append(list(map(int, input())))
-
-
-def dfs(x, y):
-    global cnt
-    if x <= -1 or x >= n or y <= -1 or y >= n:
-        return False
-
-    if arrays[x][y] == 1:
-
-        arrays[x][y] = 0
-        cnt += 1
-
-        dfs(x+1, y)
-        dfs(x-1, y)
-        dfs(x, y-1)
-        dfs(x, y+1)
-        return True
-    return False
-
-
-for i in range(n):
-    for j in range(n):
-        cnt = 0
-        if dfs(i, j) == True:
-            result.append(cnt)
-
-print(len(result))
-for i in sorted(result):
+        if chk[i][j] == 0 and graph[i][j] == 1:
+            chk[i][j] = 1
+            cnt = 0
+            dfs(i,j)
+            answer.append(cnt)
+            
+print(len(answer))
+for i in sorted(answer):
     print(i)
     
     
-#dfs의 다른풀이
-
+    
+#bfs
 n = int(input())
 graph = []
-num = []
+chk = [[0]*n for _ in range(n)]
+for _ in range(n):
+    graph.append(list(map(int,input().rstrip())))
+rs = 0
+dx = [0,1,0,-1]
+dy = [1,0,-1,0]
+answer = []
 
-for i in range(n):
-    graph.append(list(map(int, input())))
+def dfs(x,y):
+    global cnt
+    cnt += 1
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        
+        if 0 <= nx <n and 0 <= ny < n:
+            if graph[nx][ny] == 1:
+                graph[nx][ny] = 0
+                dfs(nx,ny)
+             
 
-dx = [0, 0, 1, -1]
-dy = [1, -1, 0, 0]
-
-
-def DFS(x, y):
-    if x < 0 or x >= n or y < 0 or y >= n:
-        return False
-
-    if graph[x][y] == 1:
-        global count
-        count += 1
-        graph[x][y] = 0
-        for i in range(4):
-            nx = x + dx[i]
-            ny = y + dy[i]
-            DFS(nx, ny)
-        return True
-    return False
-
-
-count = 0
-result = 0
 
 for i in range(n):
     for j in range(n):
-        if DFS(i, j) == True:
-            num.append(count)
-            result += 1
-            count = 0
-
-num.sort()
-print(result)
-for i in range(len(num)):
-    print(num[i])
+        if graph[i][j] == 1:
+            graph[i][j] = 0
+            cnt = 0
+            dfs(i,j)
+            answer.append(cnt)
+            
+print(len(answer))
+for i in sorted(answer):
+    print(i)
