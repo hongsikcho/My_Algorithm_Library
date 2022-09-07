@@ -66,3 +66,5 @@ while True:
     if ate>=now_size:
         now_size+=1
         ate = 0
+        
+#  q = deque([(1,2)]) iterale객체만 삽입가능!!
