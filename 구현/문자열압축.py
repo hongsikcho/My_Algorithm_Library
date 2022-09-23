@@ -30,3 +30,37 @@ print(result)
 #조금 더 신경써야 할 부분
 #문자열에서 범위를 초과하여 출력하면 최대범위까지만 출력된다. ex) s="abcde" -> print(s[0:100]) -> abcde 출력
 #for문에서 범위가 0 ~ n까지일때 항상 n-1번째까지 반복됨을 잊지말것
+
+def solution(s):
+    if len(s) == 1:
+        return 1
+        
+    answer = []
+    for interval in range(1,(len(s)//2)+1):
+        cnt = ''
+        last = s[0:interval]
+        count = 1
+        for i in range(interval , len(s), interval):
+            if last == s[i:i+interval]:
+                count += 1
+                continue
+            else:
+                if count >= 2:
+                    cnt += str(count)
+                    cnt += last
+                else:
+                    cnt += last
+                count = 1
+                last = s[i:i+interval]
+            
+        if count >= 2:
+            cnt += str(count)
+            cnt += last
+        else:
+            cnt += last
+        answer.append(len(cnt))
+        
+    return min(answer)
+            
+        
+    
