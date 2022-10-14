@@ -32,6 +32,47 @@ def solve(depth, idx):
 solve(0, 0)
 print(result)
 
+==============================================================================================================
+import sys
+
+
+n = int(sys.stdin.readline())
+array = []
+chk = [0]*(n+1)
+result = 10e9
+pick = []
+for i in range(n):
+    array.append(list(map(int,sys.stdin.readline().split())))
+
+def sol(x,idx):
+    global result
+    if (x == (n//2)):
+        start = 0
+        link = 0
+        for i in range(n):
+            for j in range(i+1,n):
+                if i == j:
+                    continue
+                if i in pick and j in pick:
+                    start += (array[i][j] + array[j][i])
+                elif i not in pick and j not in pick:
+                    link += (array[i][j] + array[j][i])
+        result = min(result,(abs(start - link)))
+        return
+
+    for i in range(idx,n):
+        if chk[i] == 0:
+            chk[i] = 1
+            pick.append(i)
+            sol(x+1,idx+1)
+            pick.pop()
+            chk[i] = 0
+
+sol(0,0)
+print(result)
+
+#이 풀이는 배열에서 찾아오는 시간 때문에 시간초과
+
 #list간의 차이를 구하고 싶으면 set으로 변경후 합,차 등을 구하고 리스트로 변경하면 된다.
 
 #파이썬 순열
