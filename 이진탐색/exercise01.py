@@ -50,6 +50,7 @@ for i in x :
 #계수 정렬 푸이
 
 n = int(input())
+
 array = [0] * 1000001
 
 for i in input().split():
