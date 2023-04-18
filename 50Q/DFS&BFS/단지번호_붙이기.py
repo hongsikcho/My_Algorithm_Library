@@ -20,8 +20,6 @@ def dfs(x,y):
             if chk[nx][ny] == 0 and graph[nx][ny] == 1:
                 chk[nx][ny] = 1
                 dfs(nx,ny)
-             
-
 
 for i in range(n):
     for j in range(n):
