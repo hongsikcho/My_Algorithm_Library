@@ -5,7 +5,6 @@ def solution(answers):
     score = [0, 0, 0]
     result = []
 
-
     for idx, ans in enumerate(answers):
         if ans == p1[idx % len(p1)]:
             score[0] += 1
