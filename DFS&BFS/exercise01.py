@@ -8,7 +8,6 @@ for i in range(n):
 
 def dfs(x,y):
   
-  
   if x < 0 or y < 0 or x >=n or y >=n:
     return False
   
